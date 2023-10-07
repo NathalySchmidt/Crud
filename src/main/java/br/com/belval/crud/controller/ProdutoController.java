@@ -104,8 +104,18 @@ public class ProdutoController {
 		}
 		return encontrou;
 	}
+	@GetMapping("/produto/{id}/delete")
+	private ModelAndView deletar(@PathVariable int id,RedirectAttributes redirectAttributes) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/produto/list");
+		ListIterator<Produto> it = lista.listIterator();
+		while(it.hasNext()) {
+			Produto encontrado = it.next();
+			if (encontrado.getId() == id ) {
+				it.remove();
+				redirectAttributes.addFlashAttribute("msg","Produto Apagado!");
 	
-	
-
-	
+			}
+		}
+		return modelAndView;
+	}
 }
